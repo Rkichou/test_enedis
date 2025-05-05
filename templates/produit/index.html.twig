@@ -1,19 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Liste des Produits{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+<style>.produit-index-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
 
-    <table class="table">
+.produit-index-title {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.produit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.produit-table th,
+.produit-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.produit-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    color: #555;
+}
+
+.produit-table td {
+    color: #333;
+}
+
+.produit-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.no-records {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-show {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-show:hover {
+    background-color: #138496;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}
+
+.btn-new {
+    display: block;
+    margin: 20px auto;
+    background-color: #28a745;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.btn-new:hover {
+    background-color: #218838;
+}</style>
+
+<div class="produit-index-container">
+    <h1 class="produit-index-title">Liste des Produits</h1>
+
+    <table class="produit-table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Prix</th>
-                <th>Categorie</th>
-                <th>actions</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -22,20 +113,21 @@
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.nom }}</td>
                 <td>{{ produit.description }}</td>
-                <td>{{ produit.prix }}</td>
+                <td>{{ produit.prix }} €</td>
                 <td>{{ produit.categorie }}</td>
-                <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                <td class="produit-actions">
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-show">Voir</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-edit">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6" class="no-records">Aucun produit trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+    <a href="{{ path('app_produit_new') }}" class="btn btn-new">Créer un nouveau produit</a>
+</div>
 {% endblock %}
